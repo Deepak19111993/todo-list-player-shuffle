@@ -1,0 +1,22 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  list-style-type: none;
+  margin-bottom: 40px;
+  li {
+    margin-right: 10px;
+    a {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer !important;
+      &:hover {
+        color: red;
+      }
+      &[aria-current] {
+        text-decoration: underline;
+        color: red;
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+.todoWrapper {
+  width: 100%;
+  padding: 50px 15px;
+  max-width: 350px;
+  width: 100%;
+  margin: 0 auto;
+  .title {
+    font-size: 30px;
+    line-height: 40px;
+  }
+  .todoListWrapper {
+    width: 100%;
+    .inputWrapper {
+      position: relative;
+      width: 100%;
+      .inputText {
+        width: 100%;
+        height: 40px;
+        border-radius: 4px;
+        background: #fff;
+        border: 1px solid #cdcdcd;
+        padding: 0 35px 0 15px;
+        font-size: 16px;
+        color: #000;
+        outline: none;
+      }
+      .addIcon {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        transform: translateY(-50%);
+        // filter: invert(1);
+        width: 18px;
+        cursor: pointer !important;
+      }
+      .editIcon {
+        filter: invert(34%) sepia(16%) saturate(3141%) hue-rotate(85deg)
+          brightness(99%) contrast(90%);
+      }
+    }
+    .inputDataList {
+      position: relative;
+      width: 100%;
+      padding: 12px 65px 12px 15px;
+      color: #fff;
+      margin-top: 15px;
+      background: #10107a;
+      text-align: left;
+      font-size: 16px;
+      border-radius: 4px;
+      span {
+        word-break: break-all;
+      }
+      .btnWrapper {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        .icon {
+          //   position: absolute;
+          //   right: 15px;
+          //   top: 50%;
+          //   transform: translateY(-50%);
+          filter: invert(1);
+          width: 18px;
+          cursor: pointer !important;
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}
