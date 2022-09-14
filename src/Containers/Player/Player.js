@@ -9,6 +9,8 @@ const Player = () => {
   const [visiable, setVisiable] = useState(false);
   const [groupVisiable, setGroupVisiable] = useState(false);
   const [randomBtnVisiable, setRandomBtnVisiable] = useState(false);
+  const [groupInputNumber, setGroupInputNumber] = useState("");
+  const [copyGroupInputNumber, setCopyGroupInputNumber] = useState("");
 
   const addItem = () => {
     const updateValue = inputData.split(",");
@@ -38,15 +40,26 @@ const Player = () => {
     // console.log("newUpdate", newUpdate);
   };
 
+  const changeInputGroupNumber = (e) => {
+    setGroupInputNumber(e.target.value);
+  };
+
   const createGroup = () => {
     setGroupVisiable(true);
     setRandomBtnVisiable(true);
+    groupInputNumber >= 5
+      ? setCopyGroupInputNumber(4)
+      : setCopyGroupInputNumber(groupInputNumber);
+    setGroupInputNumber("");
   };
+
+  console.log(groupInputNumber);
+  console.log(copyGroupInputNumber);
 
   const createRandomList = () => {
     // console.log("create Random List");
     const suffleItem = [...getSuffleItem];
-    var shuffle = suffleItem.sort(function () {
+    var shuffle = suffleItem.sort(() => {
       return 0.5 - Math.random();
     });
     setGetSuffleItem(shuffle);
@@ -70,7 +83,9 @@ const Player = () => {
       </div>
       {visiable && (
         <div className={styled.listWrapper}>
-          <div className={styled.title}>List -----------------</div>
+          <div className={styled.title}>
+            List <span>{item.length}</span>
+          </div>
           <ol>
             {item.map((elem, index) => (
               <li className={styled.tag} key={index}>
@@ -79,6 +94,14 @@ const Player = () => {
             ))}
           </ol>
         </div>
+      )}
+      {visiable && (
+        <input
+          value={groupInputNumber}
+          type="number"
+          placeholder="Enter the Number of Group"
+          onChange={(e) => changeInputGroupNumber(e)}
+        />
       )}
       {/* {visiable && ( */}
       <div className={styled.btnWrapper}>
@@ -93,24 +116,32 @@ const Player = () => {
           </button>
         )}
       </div>
+
       {/* )} */}
-      {visiable && (
+      {groupVisiable && (
         <div className={styled.groupWrapper}>
-          <div className={styled.title}>Group ----------------</div>
+          <div className={styled.title}>
+            Group <span>{copyGroupInputNumber}</span>
+          </div>
           <div className={styled.groupListWrapper}>
             {groupVisiable &&
-              Array(item.length > 4 ? 4 : item.length)
+              Array(
+                // item.length > Number(copyGroupInputNumber)
+                //   ? Number(copyGroupInputNumber)
+                //   : item.length
+                Number(copyGroupInputNumber)
+              )
                 .fill("")
                 .map((elem, index) => (
                   <div key={index} className={styled.list}>
                     <h3>Group {index + 1} </h3>
                     {getSuffleItem.map((name, i) => {
-                      if (i < 4) {
+                      if (i < copyGroupInputNumber) {
                         if (i === index) {
                           return <div key={i}>{name}</div>;
                         }
                       } else {
-                        if (i % 4 === index) {
+                        if (i % copyGroupInputNumber === index) {
                           return <div key={i}>{name}</div>;
                         }
                       }
