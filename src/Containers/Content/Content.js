@@ -8,10 +8,6 @@ const Content = () => {
   return (
     <>
       <Header />
-      <Routes>
-        <Route path="/" element={<TodoApp />} />
-        <Route path="/player" element={<Player />} />
-      </Routes>
     </>
   );
 };

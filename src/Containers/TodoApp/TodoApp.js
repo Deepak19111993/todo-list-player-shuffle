@@ -3,6 +3,7 @@ import styled from "./TodoApp.module.scss";
 import addIcon from "../../assets/images/add.png";
 import deleteIcon from "../../assets/images/delete.png";
 import editIcon from "../../assets/images/edit.png";
+import Header from "../../Components/Header/Header";
 
 const TodoApp = () => {
   const [inputData, setInputData] = useState("");
@@ -46,55 +47,58 @@ const TodoApp = () => {
   };
 
   return (
-    <div className={styled.todoWrapper}>
-      <h1 className={styled.title}>TODO APP</h1>
-      <div className={styled.todoListWrapper}>
-        <div className={styled.inputWrapper}>
-          <input
-            className={styled.inputText}
-            name="input"
-            type="text"
-            value={inputData}
-            placeholder="Enter Your Text Here"
-            onChange={(e) => setInputData(e.target.value)}
-          />
-          {toggleIcon ? (
-            <img
-              className={styled.addIcon}
-              src={addIcon}
-              alt="Add Icon"
-              onClick={addItem}
+    <>
+      <Header />
+      <div className={styled.todoWrapper}>
+        <h1 className={styled.title}>TODO APP</h1>
+        <div className={styled.todoListWrapper}>
+          <div className={styled.inputWrapper}>
+            <input
+              className={styled.inputText}
+              name="input"
+              type="text"
+              value={inputData}
+              placeholder="Enter Your Text Here"
+              onChange={(e) => setInputData(e.target.value)}
             />
-          ) : (
-            <img
-              className={`${styled.addIcon} ${styled.editIcon}`}
-              src={editIcon}
-              alt="Add Icon"
-              onClick={addItem}
-            />
-          )}
-        </div>
-        {item.map((elem, index) => (
-          <div key={index} className={styled.inputDataList}>
-            <span>{elem}</span>
-            <div className={styled.btnWrapper}>
+            {toggleIcon ? (
               <img
-                className={styled.icon}
+                className={styled.addIcon}
+                src={addIcon}
+                alt="Add Icon"
+                onClick={addItem}
+              />
+            ) : (
+              <img
+                className={`${styled.addIcon} ${styled.editIcon}`}
                 src={editIcon}
-                alt="Edit Icon"
-                onClick={() => editItem(index)}
+                alt="Add Icon"
+                onClick={addItem}
               />
-              <img
-                className={styled.icon}
-                src={deleteIcon}
-                alt="Delete Icon"
-                onClick={() => deleteItem(index)}
-              />
-            </div>
+            )}
           </div>
-        ))}
+          {item.map((elem, index) => (
+            <div key={index} className={styled.inputDataList}>
+              <span>{elem}</span>
+              <div className={styled.btnWrapper}>
+                <img
+                  className={styled.icon}
+                  src={editIcon}
+                  alt="Edit Icon"
+                  onClick={() => editItem(index)}
+                />
+                <img
+                  className={styled.icon}
+                  src={deleteIcon}
+                  alt="Delete Icon"
+                  onClick={() => deleteItem(index)}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
