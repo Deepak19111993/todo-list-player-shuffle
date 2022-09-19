@@ -18,11 +18,16 @@ body {
   margin-right: 10px;
   text-transform: uppercase;
   cursor: pointer !important;
+  pointer-events: all;
   &.signup {
     background: none;
     color: blueviolet;
   }
 }
+// .disabled {
+//   pointer-events: none;
+//   cursor: not-allowed !important;
+// }
 .formWrapperBlock {
   height: 100vh;
   display: flex;

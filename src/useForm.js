@@ -1,36 +1,65 @@
 import React, { useState } from "react";
 // import validate from "./validateInfo";
+import { Link, useNavigate } from "react-router-dom";
 
 const useForm = (validate) => {
-  const [user, setUser] = useState({
+  const navigate = useNavigate();
+  const [userSignup, setUser] = useState({
     firstname: "",
     lastname: "",
     email: "",
     password: "",
     confirmpassword: "",
   });
+  const [userLogin, setUserLogin] = useState({
+    email: "",
+    password: "",
+  });
 
-  const [errors, setErrors] = useState({});
+  const [errorsSignup, setErrorsSignup] = useState({});
+  const [errorsLogin, setErrorsLogin] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
     setUser({
-      ...user,
+      ...userSignup,
       [name]: value,
     });
+    setUserLogin({
+      ...userLogin,
+      [name]: value,
+    });
+    setErrorsSignup(validate(userSignup));
+    setErrorsLogin(validate(userLogin));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // setUserDetail(user);
-    // navigate("/");
-
-    setErrors(validate(user));
-    console.log(user);
+    setErrorsSignup(validate(userSignup));
+    setErrorsLogin(validate(userLogin));
+    // Object.keys(errors).length ? setIsSubmit(false) : setIsSubmit(true);
+    setIsSubmit(true);
+    if (Object.keys(errorsSignup).length === 0 && isSubmit) {
+      navigate("/");
+    }
+    if (Object.keys(errorsLogin).length === 0 && isSubmit) {
+      navigate("/dashboard/todoapp");
+    }
+    localStorage.setItem("value", JSON.stringify(userSignup));
+    console.log(isSubmit);
   };
 
-  return { handleSubmit, handleChange, errors, user };
+  return {
+    handleSubmit,
+    handleChange,
+    errorsSignup,
+    errorsLogin,
+    userSignup,
+    userLogin,
+    isSubmit,
+  };
 };
 
 export default useForm;
