@@ -48,7 +48,7 @@ const Player = () => {
   const createGroup = () => {
     setGroupVisiable(true);
     setRandomBtnVisiable(true);
-    groupInputNumber >= 5
+    groupInputNumber >= 10
       ? setCopyGroupInputNumber(4)
       : setCopyGroupInputNumber(groupInputNumber);
     setGroupInputNumber("");

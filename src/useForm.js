@@ -19,6 +19,7 @@ const useForm = (validate) => {
   const [errorsSignup, setErrorsSignup] = useState({});
   const [errorsLogin, setErrorsLogin] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
+  const [data, setData] = useState([]);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -36,20 +37,31 @@ const useForm = (validate) => {
   };
 
   const handleSubmit = (e) => {
+    const signupErrorValidate = validate(userSignup);
+    const loginErrorValidate = validate(userSignup);
     e.preventDefault();
     setErrorsSignup(validate(userSignup));
     setErrorsLogin(validate(userLogin));
-    // Object.keys(errors).length ? setIsSubmit(false) : setIsSubmit(true);
-    setIsSubmit(true);
-    if (Object.keys(errorsSignup).length === 0 && isSubmit) {
-      navigate("/");
+    if (Object.keys(signupErrorValidate).length === 0) {
+      setIsSubmit(true);
+      localStorage.setItem(
+        "signupvalue",
+        JSON.stringify([...data, userSignup])
+      );
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     }
-    if (Object.keys(errorsLogin).length === 0 && isSubmit) {
-      navigate("/dashboard/todoapp");
+    if (Object.keys(loginErrorValidate).length === 0) {
+      setIsSubmit(true);
+      const getUserArr = localStorage.getItem("signupvalue");
+      console.log("getUserArr", getUserArr);
+      setTimeout(() => {
+        navigate("/dashboard/todoapp");
+      }, 2000);
     }
-    localStorage.setItem("value", JSON.stringify(userSignup));
-    console.log(isSubmit);
   };
+  // console.log(isSubmit, Object.keys(errorsSignup).length);
 
   return {
     handleSubmit,
